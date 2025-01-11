@@ -21,12 +21,13 @@ public class Get_Test {
 	@Test
 	public void get_test_with_response() {
 
-		given().when().get("https://reqres.in/api/users?page=2")
-
-				.then()
-                .statusCode(200).
-                body("page", equalTo(2))
-                .log().all();
+		given()
+		.when()
+		.get("https://reqres.in/api/users?page=2")
+        .then()
+        .statusCode(200).
+         body("page", equalTo(2))
+        .log().all();
  
 	}
 
