@@ -16,29 +16,33 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-public class Post_put_and_patch_Test {
+import java.nio.file.Path;
 
+public class Post_put_and_patch_Test {
+  
+	int id;
 	String bodyString = "{\"name\":\"morpheus\",\"job\":\"leader\"}";
 	String bodyString1 = "{\"name\":\"muktar\",\"job\":\"QA\"}";
 	String bodyString2 = "{\"name\":\"Mizi\",\"job\":\"QA\"}";
 
-	//@Test (priority=1)
+   @Test 
 
 	public void post_test_with_response() {
-
-		given()
+	    id= given()
 		.body(bodyString)
-		.contentType(ContentType.JSON)
+		.contentType(ContentType.JSON) 
 		.when()
 		.log().all()
 		.post("https://reqres.in/api/users")
-		.then()
-		.log().all()
-		.statusCode(201)
-		.body("name", Matchers.equalTo("morpheus"));
+		.jsonPath().getInt("id");
+		
+		//.then()
+		//.log().all()
+		//.statusCode(201)
+		//.body("name", Matchers.equalTo("morpheus"));
 	}
 	
- //	@Test (priority=2)
+ 	@Test 
 	
 	public void put_test_with_response() {
 		
@@ -47,7 +51,8 @@ public class Post_put_and_patch_Test {
 		.contentType(ContentType.JSON)
 		.when()
 		.log().all()
-		.put("https://reqres.in/api/users/74")
+		.put("https://reqres.in/api/users/"+id)
+		//.jsonPath().getInt("id");
 		.then()
 		.log().all()
 		.statusCode(200)
@@ -55,7 +60,8 @@ public class Post_put_and_patch_Test {
 		
 	}
 	
-	@Test
+  @Test  
+	
 	public void patch_test_with_response () {
 
 		given()
@@ -63,7 +69,7 @@ public class Post_put_and_patch_Test {
 		.contentType(ContentType.JSON)
 		.when()
 		.log().all()
-		.put("https://reqres.in/api/users/74")
+		.put("https://reqres.in/api/users/"+id)
 		.then()
 		.log().all()
 		.statusCode(200)
