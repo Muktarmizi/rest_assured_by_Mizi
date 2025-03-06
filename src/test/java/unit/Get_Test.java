@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.*;
 public class Get_Test {
 	
 	
-//@Test (priority=1)
+@Test 
 	
 	public void get_test_with_response() {
 
